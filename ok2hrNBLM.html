@@ -1,0 +1,1718 @@
+{\rtf1\ansi\ansicpg950\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset136 PingFangTC-Regular;\f2\fnil\fcharset0 AppleColorEmoji;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww12720\viewh7240\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="zh-TW">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>
+\f1 \'aa\'ef\'b1\'b5
+\f0 AI
+\f1 \'a4\'6a\'ae\'c9\'a5\'4e\'a1\'41\'b1\'71
+\f0 NotebookLM
+\f1 \'b6\'7d\'a9\'6c
+\f0 </title>\
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.0/dist/tailwind.min.css" rel="stylesheet">\
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">\
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>\
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@latest"></script>\
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Mochiy+Pop+One&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">\
+\
+    <style>\
+        body \{\
+            background: linear-gradient(135deg, #1c3a70 0%, #4a2f6c 100%);\
+            color: #fff;\
+            font-family: 'Noto Sans TC', 'Inter', sans-serif;\
+            overflow-x: hidden;\
+            margin: 0;\
+            padding-bottom: 80px; /* Space for fixed navigation controls */\
+        \}\
+\
+        .presentation-slide \{\
+            width: 100vw;\
+            min-height: 100vh;\
+            padding: 3rem 2rem;\
+            box-sizing: border-box;\
+            display: flex;\
+            flex-direction: column;\
+            justify-content: center;\
+            align-items: center;\
+            position: relative;\
+            overflow: hidden;\
+            text-align: center;\
+        \}\
+\
+        .presentation-slide > .slide-content \{\
+            position: relative;\
+            z-index: 1; /* Ensure content is above confetti canvas */\
+            max-width: 900px;\
+            width: 100%;\
+            background-color: rgba(0, 0, 0, 0.25);\
+            padding: 2.5rem;\
+            border-radius: 1.25rem;\
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);\
+        \}\
+\
+        .slide-title \{\
+            font-size: 2.8rem;\
+            font-weight: 700;\
+            margin-bottom: 1.5rem;\
+            color: #f0f0f0;\
+        \}\
+        \
+        .slide-subtitle \{\
+            font-size: 1.5rem;\
+            font-weight: 500;\
+            margin-bottom: 1rem;\
+            color: #d0d0d0;\
+        \}\
+\
+        .slide-text \{\
+            font-size: 1.1rem;\
+            line-height: 1.8;\
+            color: #c0c0c0;\
+            margin-bottom: 1rem;\
+        \}\
+        \
+        .info-card \{\
+            display: inline-block;\
+            background-color: #007bff;\
+            color: white;\
+            padding: 0.8rem 1.5rem;\
+            border-radius: 0.5rem;\
+            text-decoration: none;\
+            font-weight: 600;\
+            margin-top: 1rem;\
+            transition: background-color 0.3s ease, transform 0.2s ease;\
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);\
+        \}\
+        .info-card:hover \{\
+            background-color: #0056b3;\
+            transform: translateY(-2px);\
+        \}\
+        .info-card-purple \{\
+            background-color: #6f42c1;\
+        \}\
+        .info-card-purple:hover \{\
+            background-color: #5a32a3;\
+        \}\
+        .info-card-green \{\
+            background-color: #28a745;\
+        \}\
+        .info-card-green:hover \{\
+            background-color: #1e7e34;\
+        \}\
+         .info-card-orange \{\
+            background-color: #fd7e14; /* 
+\f1 \'be\'ef\'a6\'e2
+\f0  */\
+        \}\
+        .info-card-orange:hover \{\
+            background-color: #e66a00;\
+        \}\
+        .info-card-red \{\
+            background-color: #dc3545; /* 
+\f1 \'ac\'f5\'a6\'e2
+\f0  */\
+        \}\
+        .info-card-red:hover \{\
+            background-color: #c82333;\
+        \}\
+\
+\
+        .styled-table \{\
+            width: 100%;\
+            margin-top: 1.5rem;\
+            border-collapse: collapse;\
+            background-color: rgba(255, 255, 255, 0.05);\
+            border-radius: 0.5rem;\
+            overflow: hidden;\
+        \}\
+        .styled-table th, .styled-table td \{\
+            border: 1px solid rgba(255, 255, 255, 0.2);\
+            padding: 0.75rem 1rem;\
+            text-align: left;\
+            vertical-align: top; /* 
+\f1 \'aa\'ed\'ae\'e6\'a4\'ba\'ae\'65\'b3\'bb\'b3\'a1\'b9\'ef\'bb\'f4
+\f0  */\
+        \}\
+        .styled-table th \{\
+            background-color: rgba(0, 0, 0, 0.3);\
+            font-weight: 600;\
+            color: #e0e0e0;\
+        \}\
+        .styled-table td strong \{\
+            color: #87CEFA; /* 
+\f1 \'b2\'48\'c2\'c5\'a6\'e2
+\f0  */\
+            font-weight: 700;\
+        \}\
+        .styled-table ul \{\
+            list-style-type: disc;\
+            padding-left: 20px;\
+            margin: 0.5rem 0;\
+        \}\
+         .styled-table code \{\
+            background-color: rgba(255,255,255,0.1);\
+            padding: 0.2em 0.4em;\
+            border-radius: 3px;\
+            font-family: monospace;\
+        \}\
+\
+        .youtube-embed-container \{\
+            position: relative;\
+            width: 100%;\
+            max-width: 560px;\
+            padding-bottom: 56.25%;\
+            height: 0;\
+            overflow: hidden;\
+            margin: 1.5rem auto;\
+            border-radius: 0.5rem;\
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);\
+        \}\
+        .youtube-embed-container iframe \{\
+            position: absolute;\
+            top: 0;\
+            left: 0;\
+            width: 100%;\
+            height: 100%;\
+            border: 0;\
+        \}\
+\
+        .canva-embed-container \{ \
+            position: relative;\
+            width: 100%;\
+            max-width: 800px; \
+            height: 600px; \
+            overflow: hidden;\
+            margin: 1.5rem auto;\
+            border-radius: 0.5rem;\
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);\
+            border: 2px solid rgba(255,255,255,0.1);\
+        \}\
+        .canva-embed-container iframe \{\
+            position: absolute;\
+            top: 0;\
+            left: 0;\
+            width: 100%;\
+            height: 100%;\
+            border: 0;\
+        \}\
+        \
+        #navigation-controls \{\
+            position: fixed;\
+            bottom: 20px;\
+            left: 50%;\
+            transform: translateX(-50%);\
+            z-index: 1000;\
+            padding: 0.8rem;\
+            background-color: rgba(0, 0, 0, 0.7);\
+            border-radius: 0.75rem;\
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);\
+            display: flex;\
+            gap: 0.8rem;\
+        \}\
+\
+        #navigation-controls button \{\
+            padding: 0.6rem 1.2rem;\
+            font-size: 0.9rem;\
+            font-weight: 600;\
+            color: white;\
+            border: none;\
+            border-radius: 0.5rem;\
+            cursor: pointer;\
+            transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;\
+            display: flex;\
+            align-items: center;\
+            gap: 0.4rem;\
+        \}\
+        \
+        #navigation-controls button:disabled \{\
+            opacity: 0.4;\
+            cursor: not-allowed;\
+            transform: none;\
+        \}\
+        \
+        #prev-slide \{\
+            background-color: #6f42c1; /* Purple */\
+        \}\
+        #prev-slide:hover:not(:disabled) \{\
+            background-color: #5a32a3;\
+            transform: translateY(-2px);\
+        \}\
+\
+        #next-slide \{ \
+            background-color: #007bff; /* Blue */\
+        \}\
+        #next-slide:hover:not(:disabled) \{\
+            background-color: #0056b3;\
+            transform: translateY(-2px);\
+        \}\
+        \
+        #next-slide.return-to-title \{\
+            background-color: #17a2b8; /* Teal/Info color for return to title */\
+        \}\
+        #next-slide.return-to-title:hover:not(:disabled) \{\
+            background-color: #138496;\
+        \}\
+\
+\
+        #slide-selector-container \{\
+            position: fixed;\
+            bottom: 20px;\
+            right: 20px;\
+            z-index: 1000;\
+        \}\
+        #slide-select-dropdown \{\
+            background-color: rgba(0, 0, 0, 0.7);\
+            color: white;\
+            padding: 0.6rem 1rem;\
+            border-radius: 0.5rem;\
+            border: 1px solid rgba(255, 255, 255, 0.3);\
+            font-size: 0.9rem;\
+            font-family: 'Noto Sans TC', sans-serif;\
+            cursor: pointer;\
+            transition: background-color 0.3s ease;\
+            max-width: 200px; \
+        \}\
+        #slide-select-dropdown:hover \{\
+            background-color: rgba(0, 0, 0, 0.9);\
+        \}\
+        #slide-select-dropdown option \{\
+            background-color: #333; \
+            color: white;\
+        \}\
+\
+        .lecturer-info \{\
+            background-color: rgba(111, 66, 193, 0.3); \
+            padding: 0.75rem 1.25rem;\
+            border-radius: 0.5rem;\
+            display: inline-block; \
+            margin-top: 1rem;\
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);\
+        \}\
+\
+        .prominent-title \{ \
+            font-size: 3.5rem;\
+            font-weight: 900;\
+            color: #FFD700; \
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);\
+            margin-bottom: 2rem;\
+        \}\
+         .mochiy-pop-font \{\
+            font-family: 'Mochiy Pop One', 'Noto Sans TC', sans-serif;\
+        \}\
+\
+        .conclusion-highlight \{\
+            font-size: 2.2rem; \
+            font-weight: 700; \
+            color: #FF69B4; \
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);\
+            margin-top: 1.5rem;\
+            line-height: 1.5;\
+        \}\
+\
+        .thank-you-text \{\
+            font-size: 4.5rem;\
+            font-weight: 900;\
+            color: #66FF99;\
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);\
+            margin-bottom: 1rem;\
+        \}\
+        .thank-you-emoji-container \{\
+            display: flex;\
+            justify-content: center;\
+            align-items: center;\
+            gap: 1.5rem;\
+            margin-top: 1rem;\
+        \}\
+        .thank-you-emoji \{\
+            font-size: 4rem;\
+        \}\
+        .beating-heart-hand \{\
+            font-size: 4.5rem;\
+            display: inline-block;\
+            animation: beat 1.5s infinite ease-in-out;\
+        \}\
+\
+        @keyframes beat \{\
+            0%, 100% \{ transform: scale(1); \}\
+            10%, 30% \{ transform: scale(0.9); \}\
+            20%, 40%, 60%, 80% \{ transform: scale(1.1); \}\
+            50%, 70%, 90% \{ transform: scale(1.05); \}\
+        \}\
+\
+        #confetti-canvas \{\
+            position: absolute;\
+            top: 0;\
+            left: 0;\
+            width: 100%;\
+            height: 100%;\
+            pointer-events: none;\
+            z-index: 0;\
+        \}\
+\
+        @media (max-width: 768px) \{\
+            body \{ padding-bottom: 70px; \} /* Adjust for smaller nav controls */\
+            .presentation-slide \{ padding: 2rem 1rem; \}\
+            .slide-content \{ padding: 1.5rem; \}\
+            .slide-title \{ font-size: 2rem; \}\
+            .prominent-title \{ font-size: 2.5rem; \}\
+            .slide-subtitle \{ font-size: 1.2rem; \}\
+            .slide-text \{ font-size: 1rem; \}\
+            .info-card \{ padding: 0.7rem 1.2rem; font-size: 0.9rem; \}\
+            .styled-table th, .styled-table td \{ padding: 0.5rem; font-size: 0.8rem; \}\
+            #navigation-controls \{ bottom: 10px; padding: 0.6rem; \}\
+            #navigation-controls button \{ padding: 0.5rem 1rem; font-size: 0.8rem; \}\
+            .conclusion-highlight \{ font-size: 1.6rem; \} \
+            .thank-you-text \{ font-size: 3rem; \}\
+            .thank-you-emoji \{ font-size: 3rem;  \}\
+            .beating-heart-hand \{ font-size: 3.5rem; \}\
+            .canva-embed-container \{ height: 450px; \}\
+            #slide-selector-container \{ right: 10px; bottom: 80px; /* Adjusted to avoid overlap with nav controls */ \}\
+            #slide-select-dropdown \{ padding: 0.5rem; font-size: 0.8rem; max-width: 150px;\}\
+        \}\
+    </style>\
+</head>\
+<body>\
+\
+    <section class="presentation-slide">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56960 
+\f0  
+\f1 \'aa\'ef\'b1\'b5
+\f0 AI
+\f1 \'a4\'6a\'ae\'c9\'a5\'4e\'a1\'41\'b1\'71
+\f0 NotebookLM
+\f1 \'b6\'7d\'a9\'6c
+\f0  
+\f2 \uc0\u55357 \u56960 
+\f0 </h1>\
+            <div class="lecturer-info">\
+                <p class="slide-text" style="font-size: 1.2rem; margin: 0; color: #f0f0f0;">\
+                    
+\f1 \'c1\'bf\'ae\'76\'a1\'47
+\f0 Gloria
+\f1 \'a7\'64\'a8\'71\'c4\'f5\'a6\'d1\'ae\'76
+\f0 <br>\
+                    Google 
+\f1 \'bb\'7b\'c3\'d2\'c1\'bf\'ae\'76
+\f0 \
+                </p>\
+            </div>\
+            <p class="slide-text" style="font-size: 1.1rem; margin-top: 0.5rem;">
+\f1 \'b0\'ea\'a5\'df\'b4\'bf\'a4\'e5\'b9\'41\'a4\'75
+\f0  
+\f1 \'ad\'5e\'a4\'e5\'ad\'dd\'a5\'78\'bb\'79\'b1\'d0\'ae\'76
+\f0 </p>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title prominent-title">
+\f2 \uc0\u55356 \u57119 
+\f0  
+\f1 \'c1\'bf\'ae\'76\'a4\'b6\'b2\'d0
+\f0  
+\f2 \uc0\u55356 \u57119 
+\f0 </h1>\
+            <p class="slide-text">
+\f1 \'c5\'fd\'a7\'da\'ad\'cc\'a7\'f3\'bb\'7b\'c3\'d1\'a4\'b5\'a4\'d1\'aa\'ba\'c1\'bf\'ae\'76
+\f0  Gloria 
+\f1 \'a7\'64\'a8\'71\'c4\'f5\'a6\'d1\'ae\'76\'a1\'49
+\f0 </p>\
+            <a href="https://youtu.be/V6uc2s51dxw" target="_blank" class="info-card info-card-purple" style="margin-top: 2rem; font-size: 1.3rem;">\
+                
+\f1 \'c6\'5b\'ac\'dd\'c1\'bf\'ae\'76\'a4\'b6\'b2\'d0\'bc\'76\'a4\'f9
+\f0  <i class="fab fa-youtube"></i>\
+            </a>\
+            <p class="slide-text" style="font-size: 0.8rem; margin-top: 1rem;">
+\f1 \'a1\'5d\'c2\'49\'c0\'bb\'a4\'57\'a4\'e8\'ab\'f6\'b6\'73\'c6\'5b\'ac\'dd\'bc\'76\'a4\'f9\'a1\'5e
+\f0 </p>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56522 
+\f0  Google 
+\f1 \'a4\'54\'a4\'6a
+\f0  AI 
+\f1 \'a4\'75\'a8\'e3\'a4\'f1\'b8\'fb
+\f0 </h1>\
+            <p class="slide-text">
+\f1 \'a4\'46\'b8\'d1
+\f0  NotebookLM, Gemini, 
+\f1 \'a9\'4d
+\f0  Google AI Studio 
+\f1 \'aa\'ba\'a4\'a3\'a6\'50\'a4\'a7\'b3\'42\'a1\'47
+\f0 </p>\
+            <div class="styled-table-container" style="max-height: 70vh; overflow-y: auto;">\
+                 <table class="styled-table">\
+                    <thead>\
+                        <tr>\
+                            <th>
+\f1 \'a4\'75\'a8\'e3\'a6\'57\'ba\'d9
+\f0 </th>\
+                            <th>
+\f1 \'b1\'6a\'b6\'b5
+\f0  / 
+\f1 \'a5\'44\'ad\'6e\'a5\'5c\'af\'e0
+\f0 </th>\
+                            <th>
+\f1 \'a8\'cf\'a5\'ce\'ae\'c9\'be\'f7
+\f0  / 
+\f1 \'be\'41\'a6\'58\'b3\'f5\'b4\'ba
+\f0 </th>\
+                        </tr>\
+                    </thead>\
+                    <tbody>\
+                        <tr>\
+                            <td><strong>NotebookLM</strong></td>\
+                            <td>\
+                                <ul>\
+                                    <li>
+\f1 \'b0\'f2\'a9\'f3
+\f0 <strong>
+\f1 \'b1\'7a\'b4\'a3\'a8\'d1\'aa\'ba\'b8\'ea\'ae\'c6\'a8\'d3\'b7\'bd
+\f0 </strong>
+\f1 \'b6\'69\'a6\'e6\'ac\'e3\'a8\'73\'bb\'50\'bc\'67\'a7\'40
+\f0 </li>\
+                                    <li>
+\f1 \'a7\'d6\'b3\'74\'ba\'4b\'ad\'6e\'a1\'42\'b4\'a3\'b0\'dd\'a1\'42\'a5\'cd\'a6\'a8\'b5\'a7\'b0\'4f\'a1\'42
+\f0 FAQ
+\f1 \'a1\'42\'be\'c7\'b2\'df\'ab\'fc\'ab\'6e
+\f0 </li>\
+                                    <li>
+\f1 \'be\'e3\'a6\'58\'a6\'68\'ba\'d8\'a8\'d3\'b7\'bd
+\f0  (PDF, Docs, URL, YouTube
+\f1 \'a6\'72\'b9\'f5
+\f0 )</li>\
+                                    <li><strong>
+\f1 \'ad\'d3\'a4\'48\'a4\'c6
+\f0  AI 
+\f1 \'ac\'e3\'a8\'73\'a7\'55\'b2\'7a
+\f0 </strong></li>\
+                                </ul>\
+                            </td>\
+                            <td>\
+                                <ul>\
+                                    <li>
+\f1 \'b2\'60\'ab\'d7\'be\'5c\'c5\'aa\'bb\'50\'b2\'7a\'b8\'d1\'a4\'6a\'b6\'71\'a4\'e5\'a5\'f3
+\f0 </li>\
+                                    <li>
+\f1 \'be\'c7\'b3\'4e\'ac\'e3\'a8\'73\'a1\'42\'b3\'f8\'a7\'69\'bc\'b6\'bc\'67\'a1\'42\'bd\'d2\'b5\'7b\'b7\'c7\'b3\'c6
+\f0 </li>\
+                                    <li><strong>
+\f1 \'ab\'d8\'a5\'df\'ad\'d3\'a4\'48\'aa\'be\'c3\'d1\'ae\'77
+\f0 </strong>
+\f1 \'a8\'c3\'bb\'50
+\f0  AI 
+\f1 \'a4\'ac\'b0\'ca
+\f0 </li>\
+                                    <li>
+\f1 \'bb\'dd\'ad\'6e
+\f0  AI 
+\f1 \'a6\'5e\'c0\'b3
+\f0 <strong>
+\f1 \'c4\'59\'ae\'e6\'b0\'f2\'a9\'f3\'af\'53\'a9\'77\'a4\'e5\'a5\'f3
+\f0 </strong>
+\f1 \'ae\'c9
+\f0 </li>\
+                                </ul>\
+                            </td>\
+                        </tr>\
+                        <tr>\
+                            <td><strong>Gemini (App/Web)</strong></td>\
+                            <td>\
+                                <ul>\
+                                    <li><strong>
+\f1 \'b3\'71\'a5\'ce\'ab\'ac
+\f0  AI 
+\f1 \'a7\'55\'b2\'7a
+\f0 </strong> (
+\f1 \'ba\'f4\'ad\'b6\'aa\'a9
+\f0  gemini.google.com 
+\f1 \'a9\'ce
+\f0  App)</li>\
+                                    <li>
+\f1 \'b3\'d0\'b7\'4e\'bc\'67\'a7\'40\'a1\'42\'b5\'7b\'a6\'a1\'bd\'58\'a5\'cd\'a6\'a8\'a1\'42\'a6\'68\'bb\'79\'a8\'a5\'c2\'bd\'c4\'b6\'a1\'42\'a4\'e9\'b1\'60\'b0\'dd\'b5\'aa
+\f0 </li>\
+                                    <li>
+\f1 \'a5\'69\'b3\'73\'b1\'b5
+\f0  Google Apps (Gmail, Docs 
+\f1 \'b5\'a5\'a1\'41\'bb\'dd\'a5\'49\'b6\'4f\'aa\'a9
+\f0 )</li>\
+                                    <li>
+\f1 \'a6\'68\'bc\'d2\'ba\'41\'af\'e0\'a4\'4f
+\f0  (
+\f1 \'b2\'7a\'b8\'d1\'a4\'e5\'a6\'72\'a1\'42\'b9\'cf\'a4\'f9\'a1\'42\'bb\'79\'ad\'b5
+\f0 )</li>\
+                                </ul>\
+                            </td>\
+                            <td>\
+                                <ul>\
+                                    <li>
+\f1 \'a7\'d6\'b3\'74\'c0\'f2\'a8\'fa\'b8\'ea\'b0\'54\'a1\'42\'b8\'a3\'a4\'4f\'bf\'45\'c0\'fa
+\f0 </li>\
+                                    <li>
+\f1 \'bc\'b6\'bc\'67\'af\'f3\'bd\'5a\'a1\'42\'bc\'ed\'b9\'a2\'a4\'e5\'a6\'72\'a1\'42\'be\'c7\'b2\'df\'b7\'73\'aa\'be
+\f0 </li>\
+                                    <li><strong>
+\f1 \'a4\'e9\'b1\'60\'a5\'f4\'b0\'c8\'aa\'ba
+\f0  AI 
+\f1 \'a8\'f3\'a7\'55
+\f0 </strong></li>\
+                                    <li>
+\f1 \'bb\'dd\'ad\'6e\'bc\'73\'aa\'78\'aa\'be\'c3\'d1\'bb\'50\'b3\'d0\'b7\'4e\'a5\'cd\'a6\'a8\'ae\'c9
+\f0 </li>\
+                                </ul>\
+                            </td>\
+                        </tr>\
+                         <tr>\
+                            <td><strong>Google AI Studio</strong><br><small>(ai.google.dev)</small></td>\
+                            <td>\
+                                <ul>\
+                                    <li><strong>
+\f1 \'b6\'7d\'b5\'6f\'aa\'cc\'a5\'ad\'a5\'78
+\f0 </strong>
+\f1 \'a1\'41\'a5\'ce\'a9\'f3\'ad\'ec\'ab\'ac\'b3\'5d\'ad\'70\'bb\'50\'ab\'d8\'ba\'63
+\f0  AI 
+\f1 \'c0\'b3\'a5\'ce
+\f0 </li>\
+                                    <li>
+\f1 \'a6\'73\'a8\'fa\'b3\'cc\'b7\'73\'aa\'ba
+\f0  Gemini API 
+\f1 \'bc\'d2\'ab\'ac
+\f0 </li>\
+                                    <li>
+\f1 \'bd\'d5\'be\'e3\'bc\'d2\'ab\'ac\'b0\'d1\'bc\'c6\'a1\'42\'b4\'fa\'b8\'d5\'b4\'a3\'a5\'dc
+\f0  (Prompt Engineering)</li>\
+                                    <li>
+\f1 \'c0\'f2\'a8\'fa
+\f0  API 
+\f1 \'aa\'f7\'c6\'5f\'a5\'48\'be\'e3\'a6\'58\'a8\'ec\'a6\'db\'a4\'76\'aa\'ba\'c0\'b3\'a5\'ce\'b5\'7b\'a6\'a1\'a4\'a4
+\f0 </li>\
+                                </ul>\
+                            </td>\
+                            <td>\
+                                <ul>\
+                                    <li>
+\f1 \'b6\'7d\'b5\'6f\'aa\'cc\'a9\'ce\'a7\'de\'b3\'4e\'b7\'52\'a6\'6e\'aa\'cc
+\f0 <strong>
+\f1 \'b1\'b4\'af\'c1
+\f0  AI 
+\f1 \'bc\'d2\'ab\'ac\'af\'e0\'a4\'4f
+\f0 </strong></li>\
+                                    <li>
+\f1 \'ac\'b0\'af\'53\'a9\'77\'c0\'b3\'a5\'ce\'b3\'f5\'b4\'ba\'b3\'5d\'ad\'70\'a9\'4d\'b4\'fa\'b8\'d5
+\f0  AI 
+\f1 \'b4\'a3\'a5\'dc
+\f0 </li>\
+                                    <li><strong>
+\f1 \'ab\'d8\'ba\'63\'ab\'c8\'bb\'73\'a4\'c6\'aa\'ba
+\f0  AI 
+\f1 \'a5\'5c\'af\'e0\'a9\'ce\'aa\'41\'b0\'c8
+\f0 </strong></li>\
+                                    <li>
+\f1 \'bb\'dd\'ad\'6e\'a7\'f3\'b2\'d3\'bd\'6f\'b1\'b1\'a8\'ee\'bc\'d2\'ab\'ac\'a6\'e6\'ac\'b0\'ae\'c9
+\f0 </li>\
+                                </ul>\
+                            </td>\
+                        </tr>\
+                    </tbody>\
+                </table>\
+            </div>\
+            <p class="slide-text" style="margin-top: 1rem; font-size: 0.9rem;"><strong>
+\f1 \'ad\'ab\'c2\'49\'b4\'a3\'a5\'dc\'a1\'47
+\f0 </strong><code>NotebookLM</code> 
+\f1 \'b1\'6a\'bd\'d5\'b0\'f2\'a9\'f3\'b1\'7a\'aa\'ba\'b8\'ea\'ae\'c6\'a1\'46
+\f0 <code>Gemini</code> 
+\f1 \'ac\'4f\'b8\'55\'a5\'ce\'a7\'55\'b2\'7a\'a1\'46
+\f0 <code>AI Studio</code> 
+\f1 \'ab\'68\'ac\'b0\'b6\'7d\'b5\'6f\'aa\'cc\'a5\'b4\'b3\'79\'c0\'b3\'a5\'ce\'a1\'43
+\f0 </p>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h2 class="slide-subtitle">I. 
+\f1 \'ab\'65\'a8\'a5\'a1\'47
+\f0 </h2>\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56540 
+\f0  
+\f1 \'b5\'db\'a7\'40\'a4\'48\'ae\'e6\'c5\'76
+\f0 </h1>\
+            <p class="slide-text">
+\f1 \'bd\'d0\'aa\'60\'b7\'4e\'a1\'41\'a8\'cf\'a5\'ce
+\f0 AI
+\f1 \'a4\'75\'a8\'e3\'ae\'c9\'a1\'41\'a4\'b4\'bb\'dd\'b4\'4c\'ad\'ab\'a5\'4c\'a4\'48\'aa\'ba\'b5\'db\'a7\'40\'c5\'76\'af\'71\'a1\'43\'a5\'48\'a4\'55\'bc\'76\'a4\'f9\'b4\'a3\'a8\'d1\'ac\'db\'c3\'f6\'bb\'a1\'a9\'fa\'a1\'47
+\f0 </p>\
+            <a href="https://youtu.be/Kb1IRCcnkhY" target="_blank" class="info-card info-card-purple" style="margin-top: 2rem; font-size: 1.3rem;">\
+                
+\f1 \'c6\'5b\'ac\'dd\'bb\'a1\'a9\'fa\'bc\'76\'a4\'f9
+\f0  <i class="fab fa-youtube"></i>\
+            </a>\
+            <p class="slide-text" style="font-size: 0.8rem; margin-top: 1rem;">
+\f1 \'a1\'5d\'c2\'49\'c0\'bb\'a4\'57\'a4\'e8\'ab\'f6\'b6\'73\'c6\'5b\'ac\'dd\'bc\'76\'a4\'f9\'a1\'5e
+\f0 </p>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u9878 \u65039 
+\f0  
+\f1 \'a8\'cf\'a5\'ce
+\f0 Google AI
+\f1 \'aa\'ba\'ad\'ad\'a8\'ee\'a4\'ce\'b3\'57\'bd\'64
+\f0 </h1>\
+            <p class="slide-text">
+\f1 \'a6\'62\'a8\'cf\'a5\'ce
+\f0  Gemini API (NotebookLM 
+\f1 \'a9\'b3\'bc\'68\'a7\'de\'b3\'4e\'a4\'a7\'a4\'40
+\f0 ) 
+\f1 \'ae\'c9\'a1\'41\'bd\'d0\'b0\'c8\'a5\'b2\'bf\'ed\'a6\'75\'ac\'db\'c3\'f6\'ac\'46\'b5\'a6\'a1\'47
+\f0 </p>\
+            <div class="styled-table-container" style="max-height: 60vh; overflow-y: auto;">\
+                 <table class="styled-table">\
+                    <thead>\
+                        <tr>\
+                            <th>
+\f1 \'ac\'46\'b5\'a6\'ad\'ab\'c2\'49
+\f0 </th>\
+                            <th>
+\f1 \'bb\'a1\'a9\'fa
+\f0 </th>\
+                        </tr>\
+                    </thead>\
+                    <tbody>\
+                        <tr>\
+                            <td><strong>
+\f1 \'b8\'54\'a4\'ee\'a5\'ce\'b3\'7e
+\f0 </strong></td>\
+                            <td>
+\f1 \'a4\'a3\'b1\'6f\'a5\'ce\'a9\'f3\'b2\'a3\'a5\'cd\'a4\'b3\'ab\'eb\'a8\'a5\'bd\'d7\'a1\'42\'c4\'cc\'c2\'5a\'a1\'42\'b1\'a1\'a6\'e2\'c5\'53\'b0\'a9\'a4\'ba\'ae\'65\'a1\'42\'bc\'c9\'a4\'4f\'a4\'ba\'ae\'65\'a9\'ce\'a5\'f4\'a6\'f3\'ab\'44\'aa\'6b\'ac\'a1\'b0\'ca\'a1\'43
+\f0 </td>\
+                        </tr>\
+                        <tr>\
+                            <td><strong>
+\f1 \'b8\'ea\'ae\'c6\'b3\'42\'b2\'7a\'bb\'50\'c1\'f4\'a8\'70
+\f0 </strong></td>\
+                            <td>Google 
+\f1 \'b7\'7c\'ba\'ca\'b1\'b1
+\f0  API 
+\f1 \'a8\'cf\'a5\'ce\'b1\'a1\'aa\'70\'a5\'48\'b0\'bb\'b4\'fa\'c0\'dd\'a5\'ce\'a6\'e6\'ac\'b0\'a1\'43\'b4\'a3\'a5\'dc\'a1\'42\'ad\'49\'b4\'ba\'b8\'ea\'b0\'54\'a9\'4d\'bf\'e9\'a5\'58\'a4\'ba\'ae\'65\'a5\'69\'af\'e0\'b7\'7c\'b3\'51\'ab\'4f\'af\'64
+\f0  <strong>55 
+\f1 \'a4\'d1
+\f0 </strong>
+\f1 \'a5\'ce\'a9\'f3\'c0\'dd\'a5\'ce\'ba\'ca\'b1\'b1\'a1\'41\'a6\'fd
+\f0 <strong>
+\f1 \'a4\'a3\'b7\'7c
+\f0 </strong>
+\f1 \'a5\'ce\'a9\'f3\'b0\'56\'bd\'6d\'a9\'ce\'b7\'4c\'bd\'d5\'b3\'71\'a5\'ce
+\f0  AI 
+\f1 \'bc\'d2\'ab\'ac\'a1\'43
+\f0 </td>\
+                        </tr>\
+                         <tr>\
+                            <td><strong>
+\f1 \'a4\'48\'a4\'75\'bc\'66\'ac\'64
+\f0 </strong></td>\
+                            <td>
+\f1 \'ad\'59\'a8\'74\'b2\'ce\'b0\'bb\'b4\'fa\'a8\'ec\'a5\'69\'ba\'c3\'ac\'a1\'b0\'ca\'a9\'ce\'a4\'ba\'ae\'65\'bc\'d0\'b0\'4f\'a1\'41
+\f0 <strong>Google 
+\f1 \'b1\'c2\'c5\'76\'a4\'48\'ad\'fb
+\f0 </strong>
+\f1 \'a5\'69\'af\'e0\'b7\'7c\'b6\'69\'a6\'e6\'a4\'48\'a4\'75\'bc\'66\'ac\'64\'a1\'43
+\f0 </td>\
+                        </tr>\
+                        <tr>\
+                            <td><strong>
+\f1 \'ac\'46\'b5\'a6\'bf\'ed\'b4\'60
+\f0 </strong></td>\
+                            <td>
+\f1 \'b9\'48\'a4\'cf\'ac\'46\'b5\'a6\'a5\'69\'af\'e0\'be\'c9\'ad\'50\'a8\'cf\'a5\'ce\'ad\'ad\'a8\'ee\'a1\'42\'bc\'c8\'ae\'c9\'b0\'b1\'c5\'76\'a1\'41\'c4\'59\'ad\'ab\'aa\'cc\'ac\'c6\'a6\'dc\'b1\'62\'a4\'e1\'c3\'f6\'b3\'ac\'a1\'43
+\f0 </td>\
+                        </tr>\
+                        <tr>\
+                            <td><strong>
+\f1 \'b7\'4e\'a8\'a3\'a6\'5e\'f5\'58
+\f0 </strong></td>\
+                            <td>
+\f1 \'a6\'62
+\f0  AI Studio 
+\f1 \'a4\'a4\'b4\'a3\'a8\'d1\'aa\'ba\'b0\'be\'a6\'6e\'a7\'eb\'b2\'bc\'b5\'a5\'b7\'4e\'a8\'a3\'a6\'5e\'f5\'58\'a1\'41\'b1\'4e\'a5\'ce\'a9\'f3\'a7\'ef\'b5\'bd
+\f0  Google 
+\f1 \'b2\'a3\'ab\'7e\'a9\'4d\'aa\'41\'b0\'c8\'a1\'43\'b4\'a3\'a5\'e6\'b7\'4e\'a8\'a3\'ae\'c9\'a1\'41\'bd\'d0\'a4\'c5\'a5\'5d\'a7\'74\'b1\'d3\'b7\'50\'a9\'ce\'ad\'d3\'a4\'48\'b8\'ea\'b0\'54\'a1\'43
+\f0 </td>\
+                        </tr>\
+                         <tr>\
+                            <td><strong>
+\f1 \'b3\'64\'a5\'f4\'c2\'6b\'c4\'dd
+\f0 </strong></td>\
+                            <td>
+\f1 \'a8\'cf\'a5\'ce\'aa\'cc\'bb\'dd\'b9\'ef\'a8\'e4\'c0\'b3\'a5\'ce\'b5\'7b\'a6\'a1\'aa\'ba\'a6\'e6\'ac\'b0\'ad\'74\'b3\'64\'a1\'41\'a8\'c3\'bd\'54\'ab\'4f\'a8\'e4\'b2\'c5\'a6\'58\'a9\'d2\'a6\'b3\'be\'41\'a5\'ce\'aa\'6b\'ab\'df\'bb\'50\'b3\'57\'bd\'64\'a1\'43
+\f0 </td>\
+                        </tr>\
+                    </tbody>\
+                </table>\
+            </div>\
+            <a href="https://ai.google.dev/gemini-api/docs/usage-policies?hl=zh-tw" target="_blank" class="info-card" style="margin-top: 1.5rem;">
+\f1 \'ac\'64\'ac\'dd\'a7\'b9\'be\'e3\'ac\'46\'b5\'a6
+\f0  <i class="fas fa-external-link-alt"></i></a>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u9989 
+\f0  AI
+\f1 \'aa\'ba
+\f0 Do vs 
+\f2 \uc0\u55357 \u57003 
+\f0  Don't</h1>\
+            <p class="slide-text" style="font-size: 1.8rem; margin-top: 2rem;">\
+                
+\f1 \'a4\'46\'b8\'d1
+\f0 AI
+\f1 \'af\'e0\'b0\'b5\'a4\'b0\'bb\'f2\'a1\'41\'a5\'48\'a4\'ce\'ad\'fe\'a8\'c7\'ae\'c9\'ad\'d4\'a7\'da\'ad\'cc\'a4\'b4\'bb\'dd\'c2\'d4\'b7\'56\'a1\'49
+\f0 \
+            </p>\
+            <div style="display: flex; justify-content: space-around; margin-top: 2rem;">\
+                <span style="font-size: 4rem;">
+\f2 \uc0\u55357 \u56397 
+\f0 </span>\
+                <span style="font-size: 4rem;">
+\f2 \uc0\u55358 \u56596 
+\f0 </span>\
+                <span style="font-size: 4rem;">
+\f2 \uc0\u55357 \u56398 
+\f0 </span>\
+            </div>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56481 
+\f0  
+\f1 \'ad\'ab\'bd\'c6\'a9\'ca\'b6\'4f\'ae\'c9\'b6\'4f\'a4\'75\'a1\'47\'a5\'e6\'b5\'b9
+\f0 AI
+\f1 \'ac\'d9\'ae\'c9\'ac\'d9\'a4\'4f
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.5rem;">\
+                
+\f1 \'a8\'d2\'a6\'70\'a1\'47\'b8\'ea\'ae\'c6\'be\'e3\'b2\'7a\'a1\'42\'aa\'ec\'a8\'42\'ba\'4b\'ad\'6e\'a1\'42\'c2\'bd\'c4\'b6\'a1\'42\'ae\'e6\'a6\'a1\'c2\'e0\'b4\'ab\'b5\'a5
+\f0 ...\
+            </p>\
+            <i class="fas fa-cogs fa-spin" style="font-size: 4rem; margin-top: 2rem; color: #3498db;"></i>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55358 \u56784 
+\f0  
+\f1 \'ba\'eb\'b7\'c7\'a7\'50\'c2\'5f\'af\'75\'b0\'b0\'a1\'47
+\f0 <strong style="color: #FFD700; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+\f1 \'a1\'75\'a4\'48\'b8\'a3\'a1\'76
+\f0 </strong>
+\f1 \'b5\'4c\'aa\'6b\'b3\'51\'a8\'fa\'a5\'4e
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.5rem;">\
+                AI 
+\f1 \'a5\'69\'af\'e0\'b2\'a3\'a5\'cd\'a1\'75\'a4\'db\'c4\'b1\'a1\'76\'a9\'ce\'a4\'a3\'b7\'c7\'bd\'54\'b8\'ea\'b0\'54\'a1\'41\'b0\'c8\'a5\'b2\'b6\'69\'a6\'e6\'a8\'c6\'b9\'ea\'ac\'64\'ae\'d6\'bb\'50\'a7\'e5\'a7\'50\'a9\'ca\'ab\'e4\'a6\'d2\'a1\'49
+\f0 \
+            </p>\
+            <i class="fas fa-brain" style="font-size: 4rem; margin-top: 2rem; color: #e74c3c;"></i>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h2 class="slide-subtitle" style="font-size: 2rem;">II. NoteBookLM
+\f1 \'b0\'5f\'a4\'e2\'a6\'a1
+\f0  
+\f2 \uc0\u55357 \u56960 
+\f0 </h2>\
+            <a href="https://notebooklm.google/" target="_blank" class="info-card info-card-purple" style="font-size: 1.8rem; padding: 1rem 2rem; margin-top: 2rem;">\
+                NoteBookLM <i class="fas fa-external-link-alt"></i>\
+            </a>\
+            <p class="slide-text" style="margin-top: 2rem;">
+\f1 \'c2\'49\'c0\'bb\'a4\'57\'a4\'e8\'ab\'f6\'b6\'73\'a1\'41\'b6\'7d\'a9\'6c\'b1\'7a\'aa\'ba
+\f0  NotebookLM 
+\f1 \'a4\'a7\'ae\'c8\'a1\'49
+\f0 </p>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56826 \u65039 
+\f0  1. NoteBookLM
+\f1 \'a4\'b6\'ad\'b1\'a4\'40\'a5\'d8\'c1\'41\'b5\'4d
+\f0 </h1>\
+            <p class="slide-text">
+\f1 \'b1\'b4\'af\'c1
+\f0  NotebookLM 
+\f1 \'aa\'ba\'a8\'cf\'a5\'ce\'aa\'cc\'a4\'b6\'ad\'b1\'a1\'41\'bc\'f4\'b1\'78\'a6\'55\'b6\'b5\'a5\'5c\'af\'e0\'a1\'43
+\f0 </p>\
+            <a href="https://notebooklm.google.com/?_gl=1*1m5f6p6*_ga*Njc4OTAwNjk0LjE3MjEyODUzODY.*_ga_W0LDH41ZCB*MTcyMTI4NTM4Ni4xLjAuMTcyMTI4NTM4Ni42MC4wLjA.&pli=1&authuser=0" target="_blank" class="info-card" style="font-size: 1.2rem;">\
+                
+\f1 \'b1\'b4\'af\'c1
+\f0  NoteBookLM 
+\f1 \'a4\'b6\'ad\'b1
+\f0  <i class="fas fa-search"></i>\
+            </a>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u9878 \u65039 
+\f0  NotebookLM
+\f1 \'a7\'4b\'b6\'4f\'aa\'a9
+\f0  VS Plus
+\f1 \'a5\'49\'b6\'4f\'aa\'a9
+\f0 </h1>\
+            <p class="slide-text">
+\f1 \'a4\'46\'b8\'d1\'a4\'a3\'a6\'50\'aa\'a9\'a5\'bb\'aa\'ba\'ae\'74\'b2\'a7\'a1\'41\'bf\'ef\'be\'dc\'b3\'cc\'be\'41\'a6\'58\'b1\'7a\'aa\'ba\'a4\'e8\'ae\'d7\'a1\'47
+\f0 </p>\
+            <div class="styled-table-container" style="max-height: 60vh; overflow-y: auto;">\
+                <table class="styled-table">\
+                    <thead>\
+                        <tr>\
+                            <th>
+\f1 \'a5\'5c\'af\'e0
+\f0 /
+\f1 \'ad\'ad\'a8\'ee
+\f0 </th>\
+                            <th>NotebookLM (
+\f1 \'a7\'4b\'b6\'4f\'aa\'a9
+\f0 )</th>\
+                            <th>NotebookLM Plus (
+\f1 \'a5\'49\'b6\'4f\'aa\'a9
+\f0 )</th>\
+                        </tr>\
+                    </thead>\
+                    <tbody>\
+                        <tr>\
+                            <td><strong>
+\f1 \'b5\'a7\'b0\'4f\'a5\'bb\'bc\'c6\'b6\'71
+\f0 </strong></td>\
+                            <td>
+\f1 \'b3\'cc\'a6\'68
+\f0  100 
+\f1 \'ad\'d3
+\f0 </td>\
+                            <td><strong>
+\f1 \'a6\'dc\'a4\'d6
+\f0  5 
+\f1 \'ad\'bf
+\f0 </strong> (
+\f1 \'b3\'cc\'a6\'68
+\f0  500 
+\f1 \'ad\'d3
+\f0 )</td>\
+                        </tr>\
+                        <tr>\
+                            <td><strong>
+\f1 \'a8\'43\'ad\'d3\'b5\'a7\'b0\'4f\'a5\'bb\'aa\'ba\'a8\'d3\'b7\'bd\'bc\'c6
+\f0 </strong></td>\
+                            <td>
+\f1 \'b3\'cc\'a6\'68
+\f0  50 
+\f1 \'ad\'d3
+\f0 </td>\
+                            <td><strong>
+\f1 \'a6\'dc\'a4\'d6
+\f0  5 
+\f1 \'ad\'bf
+\f0 </strong> (
+\f1 \'b3\'cc\'a6\'68
+\f0  300 
+\f1 \'ad\'d3
+\f0 )</td>\
+                        </tr>\
+                         <tr>\
+                            <td><strong>
+\f1 \'a8\'43\'ad\'d3\'a8\'d3\'b7\'bd\'a6\'72\'bc\'c6\'a4\'57\'ad\'ad
+\f0 </strong></td>\
+                            <td>
+\f1 \'ac\'f9
+\f0  500,000 
+\f1 \'a6\'72
+\f0 </td>\
+                            <td>
+\f1 \'ac\'f9
+\f0  500,000 
+\f1 \'a6\'72
+\f0  (
+\f1 \'bb\'50\'a7\'4b\'b6\'4f\'aa\'a9\'ac\'db\'a6\'50
+\f0 )</td>\
+                        </tr>\
+                        <tr>\
+                            <td><strong>
+\f1 \'a8\'43\'a4\'e9\'ac\'64\'b8\'df\'a6\'b8\'bc\'c6
+\f0 </strong></td>\
+                            <td>
+\f1 \'b3\'cc\'a6\'68
+\f0  50 
+\f1 \'a6\'b8
+\f0 </td>\
+                            <td><strong>
+\f1 \'a6\'dc\'a4\'d6
+\f0  5 
+\f1 \'ad\'bf
+\f0 </strong> (
+\f1 \'b3\'cc\'a6\'68
+\f0  500 
+\f1 \'a6\'b8
+\f0 )</td>\
+                        </tr>\
+                        <tr>\
+                            <td><strong>
+\f1 \'a8\'43\'a4\'e9\'bb\'79\'ad\'b5\'ba\'4b\'ad\'6e\'a5\'cd\'a6\'a8\'a6\'b8\'bc\'c6
+\f0 </strong></td>\
+                            <td>
+\f1 \'b3\'cc\'a6\'68
+\f0  3 
+\f1 \'a6\'b8
+\f0 </td>\
+                            <td><strong>
+\f1 \'a6\'dc\'a4\'d6
+\f0  5 
+\f1 \'ad\'bf
+\f0 </strong> (
+\f1 \'b3\'cc\'a6\'68
+\f0  20 
+\f1 \'a6\'b8
+\f0 )</td>\
+                        </tr>\
+                        <tr>\
+                            <td><strong>
+\f1 \'b6\'69\'b6\'a5\'a5\'5c\'af\'e0
+\f0 </strong></td>\
+                            <td>
+\f1 \'b0\'f2\'a5\'bb\'a5\'5c\'af\'e0
+\f0 </td>\
+                            <td><strong>
+\f1 \'b2\'e1\'a4\'d1\'b1\'4d\'a5\'ce\'b5\'a7\'b0\'4f\'a5\'bb\'a6\'40\'a8\'c9\'a1\'42\'b6\'69\'b6\'a5\'b2\'e1\'a4\'d1\'b3\'5d\'a9\'77\'a1\'42\'b5\'a7\'b0\'4f\'a5\'bb\'a4\'c0\'aa\'52\'a1\'42\'c3\'42\'a5\'7e\'c1\'f4\'a8\'70\'bb\'50\'a6\'77\'a5\'fe\'a9\'ca
+\f0 </strong></td>\
+                        </tr>\
+                         <tr>\
+                            <td><strong>
+\f1 \'be\'41\'a5\'ce\'b9\'ef\'b6\'48
+\f0 </strong></td>\
+                            <td>
+\f1 \'ad\'d3\'a4\'48\'a8\'cf\'a5\'ce\'aa\'cc\'a4\'4a\'aa\'f9
+\f0 </td>\
+                            <td><strong>
+\f1 \'b6\'69\'b6\'a5\'a8\'cf\'a5\'ce\'aa\'cc\'a1\'42\'b9\'ce\'b6\'a4\'a1\'42\'a5\'f8\'b7\'7e\'a1\'42\'b1\'d0\'a8\'7c\'be\'f7\'ba\'63
+\f0 </strong> (
+\f1 \'b3\'7a\'b9\'4c
+\f0  Google One AI Premium, Google Workspace, Google Cloud)</td>\
+                        </tr>\
+                    </tbody>\
+                </table>\
+            </div>\
+            <a href="https://notebooklm.google/plus" target="_blank" class="info-card info-card-purple" style="margin-top: 1.5rem;">\
+                
+\f1 \'a4\'46\'b8\'d1\'a7\'f3\'a6\'68
+\f0  NotebookLM Plus <i class="fas fa-rocket"></i>\
+            </a>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55356 \u57217 
+\f0  
+\f1 \'a5\'49\'b6\'4f\'aa\'a9\'a1\'47\'b6\'52\'a4\'40\'b1\'6f\'a4\'54
+\f0  (Google One AI Premium)</h1>\
+            <div style="display: flex; justify-content: space-around; align-items: center; margin-top: 2rem; flex-wrap: wrap; gap: 1rem;">\
+                <div class="text-center p-4 m-2 bg-opacity-25 bg-white rounded-lg shadow-xl" style="min-width: 200px; flex-basis: 28%;">\
+                    <i class="fas fa-lightbulb fa-3x mb-2 text-yellow-400"></i>\
+                    <h3 class="text-xl font-semibold">NotebookLM Plus</h3>\
+                    <p class="text-sm">
+\f1 \'b6\'69\'b6\'a5\'ac\'e3\'a8\'73\'bb\'50\'bc\'67\'a7\'40
+\f0 </p>\
+                </div>\
+                <div class="text-2xl font-bold mx-2 text-gray-300 self-center">+</div>\
+                <div class="text-center p-4 m-2 bg-opacity-25 bg-white rounded-lg shadow-xl" style="min-width: 200px; flex-basis: 28%;">\
+                    <i class="fas fa-brain fa-3x mb-2 text-purple-400"></i>\
+                    <h3 class="text-xl font-semibold">Gemini Advanced</h3>\
+                    <p class="text-sm">
+\f1 \'b3\'cc\'b1\'6a\'a4\'6a\'aa\'ba
+\f0  AI 
+\f1 \'bc\'d2\'ab\'ac
+\f0 </p>\
+                </div>\
+                 <div class="text-2xl font-bold mx-2 text-gray-300 self-center">+</div>\
+                <div class="text-center p-4 m-2 bg-opacity-25 bg-white rounded-lg shadow-xl" style="min-width: 200px; flex-basis: 28%;">\
+                    <i class="fas fa-hdd fa-3x mb-2 text-blue-400"></i>\
+                    <h3 class="text-xl font-semibold">2TB Google One</h3>\
+                    <p class="text-sm">
+\f1 \'b6\'b3\'ba\'dd\'c0\'78\'a6\'73\'aa\'c5\'b6\'a1
+\f0 </p>\
+                </div>\
+            </div>\
+            <p class="slide-text" style="margin-top: 2rem;">(
+\f1 \'b3\'71\'b1\'60\'a5\'5d\'a7\'74\'a6\'62
+\f0  Google One AI Premium 
+\f1 \'a4\'e8\'ae\'d7\'a4\'a4
+\f0 )</p>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u57056 \u65039 
+\f0  NotebookLM
+\f1 \'a4\'e2\'a7\'e2\'a4\'e2\'b9\'ea\'a7\'40
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.5rem;">\
+                
+\f1 \'b1\'b5\'a4\'55\'a8\'d3\'a1\'41\'c5\'fd\'a7\'da\'ad\'cc\'a4\'40\'b0\'5f\'b0\'ca\'a4\'e2\'be\'de\'a7\'40\'a1\'41\'c5\'e9\'c5\'e7
+\f0  NotebookLM 
+\f1 \'aa\'ba\'b1\'6a\'a4\'6a\'a5\'5c\'af\'e0\'a1\'49
+\f0 \
+            </p>\
+            <i class="fas fa-laptop-code" style="font-size: 4rem; margin-top: 2rem; color: #2ecc71;"></i>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56593 
+\f0  
+\f1 \'ab\'d8\'c4\'b3\'a8\'cf\'a5\'ce\'ad\'d3\'a4\'48\'b1\'62\'b8\'b9\'b5\'6e\'a4\'4a
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.3rem;">\
+                
+\f1 \'a7\'f3\'a8\'e3\'a8\'c9\'a5\'ce\'b3\'cc\'b7\'73\'a5\'fe\'a5\'5c\'af\'e0\'a5\'44\'be\'c9\'a9\'ca\'a1\'41\'bd\'54\'ab\'4f\'b1\'7a\'aa\'ba\'b8\'ea\'ae\'c6\'bb\'50\'b3\'5d\'a9\'77\'a6\'50\'a8\'42\'a1\'43
+\f0 \
+            </p>\
+            <i class="fas fa-user-check" style="font-size: 4rem; margin-top: 2rem; color: #f39c12;"></i>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56538 
+\f0  
+\f1 \'a6\'68\'bc\'d2\'ba\'41\'b8\'ea\'ae\'c6\'a8\'d3\'b7\'bd\'ac\'a1\'a5\'ce
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.5rem;">\
+                NotebookLM 
+\f1 \'a4\'e4\'b4\'a9\'a6\'68\'ba\'d8\'c3\'fe\'ab\'ac\'aa\'ba\'b8\'ea\'ae\'c6\'a8\'d3\'b7\'bd\'a1\'41\'c5\'fd\'b1\'7a\'aa\'ba\'ac\'e3\'a8\'73\'a7\'f3\'a5\'fe\'ad\'b1\'a1\'43
+\f0 \
+            </p>\
+            <div class="flex justify-around items-center mt-8 flex-wrap">\
+                <i class="fas fa-file-alt fa-3x text-blue-300 m-2" title="
+\f1 \'a4\'e5\'a5\'f3
+\f0 "></i>\
+                <i class="fas fa-link fa-3x text-green-300 m-2" title="
+\f1 \'ba\'f4\'a7\'7d
+\f0 "></i>\
+                <i class="fab fa-youtube fa-3x text-red-400 m-2" title="YouTube"></i>\
+                <i class="fas fa-file-pdf fa-3x text-orange-300 m-2" title="PDF"></i>\
+                <i class="fas fa-file-audio fa-3x text-purple-300 m-2" title="
+\f1 \'ad\'b5\'c0\'c9
+\f0 "></i>\
+            </div>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title prominent-title" style="color: #82E0AA;">
+\f2 \uc0\u9749 
+\f0  
+\f1 \'a5\'f0\'ae\'a7\'a4\'40\'a4\'55
+\f0  
+\f2 \uc0\u9749 
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.3rem;">
+\f1 \'a6\'f9\'ae\'69\'a4\'40\'a4\'55\'a1\'41\'ac\'dd\'ac\'dd\'a6\'b3\'bd\'ec\'aa\'ba\'b3\'5d\'ad\'70\'a1\'49
+\f0 </p>\
+            <div class="canva-embed-container">\
+                <iframe loading="lazy" src="https://www.canva.com/design/DAGlesP3HlI/C-gqTK9jC-Rd-PF6enIbGg/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>\
+            </div>\
+             <a href="https://www.canva.com/design/DAGlesP3HlI/C-gqTK9jC-Rd-PF6enIbGg/view?utm_content=DAGlesP3HlI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc4898417c0" target="_blank" class="info-card" style="margin-top: 1rem; background-color: #17a2b8;">\
+                
+\f1 \'b5\'4c\'aa\'6b\'c5\'e3\'a5\'dc\'a1\'48\'c2\'49\'a6\'b9\'ac\'64\'ac\'dd
+\f0  <i class="fas fa-external-link-alt"></i>\
+            </a>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55356 \u57104 
+\f0  1. 
+\f1 \'ba\'f4\'ad\'b6
+\f0  URL</h1>\
+            <p class="slide-text">
+\f1 \'aa\'bd\'b1\'b5\'b6\'4b\'a4\'57\'ba\'f4\'a7\'7d\'a1\'41
+\f0 NotebookLM 
+\f1 \'a7\'59\'a5\'69\'a4\'c0\'aa\'52\'ba\'f4\'ad\'b6\'a4\'ba\'ae\'65\'a1\'43
+\f0 </p>\
+            <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=I0050021" target="_blank" class="info-card" style="font-size: 1.2rem;">\
+                
+\f1 \'bd\'64\'a8\'d2
+\f0  <i class="fas fa-external-link-square-alt"></i>\
+            </a>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56516 
+\f0  2. PDF</h1>\
+            <p class="slide-text">
+\f1 \'a4\'57\'b6\'c7
+\f0  PDF 
+\f1 \'a4\'e5\'a5\'f3\'a1\'41\'b6\'69\'a6\'e6\'b2\'60\'ab\'d7\'a4\'c0\'aa\'52\'bb\'50\'ba\'4b\'ad\'6e\'a1\'43
+\f0 </p>\
+            <a href="https://web1.tcte.edu.tw/EXAM/114_4y/" target="_blank" class="info-card info-card-purple" style="font-size: 1.2rem;">\
+                
+\f1 \'bd\'64\'a8\'d2\'a8\'d3\'b7\'bd
+\f0  <i class="fas fa-file-pdf"></i>\
+            </a>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56570 
+\f0  4. YouTube</h1>\
+            <p class="slide-text">
+\f1 \'b6\'4b\'a4\'57
+\f0  YouTube 
+\f1 \'bc\'76\'a4\'f9\'b3\'73\'b5\'b2\'a1\'41\'c0\'f2\'a8\'fa\'a6\'72\'b9\'f5\'a1\'42\'ba\'4b\'ad\'6e\'bb\'50\'ad\'ab\'c2\'49\'a1\'43
+\f0 </p>\
+            <a href="https://youtu.be/DkrMNUfNYqQ?si=B0B1QUL4hCydjRDW" target="_blank" class="info-card info-card-purple" style="margin-top: 2rem; font-size: 1.3rem;">\
+                
+\f1 \'c6\'5b\'ac\'dd
+\f0 YouTube
+\f1 \'bd\'64\'a8\'d2
+\f0  <i class="fab fa-youtube"></i>\
+            </a>\
+             <p class="slide-text" style="font-size: 0.8rem; margin-top: 1rem;">
+\f1 \'a1\'5d\'c2\'49\'c0\'bb\'a4\'57\'a4\'e8\'ab\'f6\'b6\'73\'c6\'5b\'ac\'dd\'bc\'76\'a4\'f9\'a1\'5e
+\f0 </p>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55356 \u57255 
+\f0  5. MP3 
+\f1 \'b3\'76\'a6\'72\'bd\'5a
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.3rem;">\
+                
+\f1 \'ad\'b5\'c0\'c9\'c2\'e0\'b3\'76\'a6\'72\'bd\'5a\'a1\'41\'b3\'74\'be\'e3\'b2\'7a\'b7\'7c\'c4\'b3\'b0\'4f\'bf\'fd\'a9\'ce\'b3\'58\'bd\'cd\'a4\'ba\'ae\'65\'a1\'43
+\f0 \
+            </p>\
+            <i class="fas fa-microphone-alt" style="font-size: 4rem; margin-top: 1.5rem; color: #8e44ad;"></i>\
+            <p class="slide-text" style="margin-top:1rem; font-size: 0.9rem;">(
+\f1 \'b3\'71\'b1\'60\'bb\'dd\'ad\'6e\'a5\'fd\'b1\'4e
+\f0  MP3 
+\f1 \'c2\'e0\'ac\'b0\'a4\'e5\'a6\'72\'c0\'c9\'a6\'41\'b6\'d7\'a4\'4a\'a1\'41\'a9\'ce\'a7\'51\'a5\'ce\'a4\'e4\'b4\'a9\'bb\'79\'ad\'b5\'bf\'e9\'a4\'4a\'aa\'ba\'b5\'a7\'b0\'4f
+\f0 )</p>\
+            <a href="https://notebooklm.google.com/notebook/535ee215-0887-4703-9344-c01302d422ef?_gl=1*1m5f6p6*_ga*Njc4OTAwNjk0LjE3MjEyODUzODY.*_ga_W0LDH41ZCB*MTcyMTI4NTM4Ni4xLjAuMTcyMTI4NTM4Ni42MC4wLjA.&pli=1&authuser=0" target="_blank" class="info-card info-card-green" style="margin-top: 1.5rem;">\
+                Demo <i class="fas fa-play-circle"></i>\
+            </a>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55358 \u56813 
+\f0  NotebookLM
+\f1 \'b6\'69\'b6\'a5\'b1\'b4\'af\'c1
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.5rem;">\
+                
+\f1 \'b5\'6f\'b1\'b8\'a7\'f3\'a6\'68
+\f0  NotebookLM 
+\f1 \'aa\'ba\'c1\'f4\'c2\'c3\'a7\'de\'a5\'a9\'bb\'50\'b0\'aa\'b6\'a5\'c0\'b3\'a5\'ce\'a1\'49
+\f0 \
+            </p>\
+            <i class="fas fa-search-plus" style="font-size: 4rem; margin-top: 2rem; color: #1abc9c;"></i>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56538 
+\f0  
+\f1 \'b6\'69\'b6\'a5\'b1\'b4\'af\'c1\'a8\'d3\'b7\'bd
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.3rem;">\
+                
+\f1 \'a4\'40\'c1\'e4\'b6\'d7\'a4\'4a\'a6\'68\'b5\'a7\'a9\'b5\'a6\'f9\'b8\'ea\'ae\'c6\'a1\'41\'c2\'58\'ae\'69\'b1\'7a\'aa\'ba\'aa\'be\'c3\'d1\'ba\'f4\'b5\'b8\'a1\'43
+\f0 \
+            </p>\
+            <i class="fas fa-project-diagram" style="font-size: 4rem; margin-top: 2rem; color: #d35400;"></i>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u9881 \u65039 
+\f0  
+\f1 \'a4\'b6\'ad\'b1\'a8\'e4\'a5\'4c\'a5\'5c\'af\'e0\'c1\'e4
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.3rem;">\
+                
+\f1 \'b0\'4f\'a8\'c6\'c2\'e0\'ac\'b0\'b8\'ea\'ae\'c6\'a8\'d3\'b7\'bd\'a1\'41\'c5\'fd\'b1\'7a\'aa\'ba\'b5\'a7\'b0\'4f\'a4\'5d\'a6\'a8\'ac\'b0
+\f0  AI 
+\f1 \'a4\'c0\'aa\'52\'aa\'ba\'a4\'40\'b3\'a1\'a4\'c0\'a1\'43
+\f0 \
+            </p>\
+            <i class="fas fa-exchange-alt" style="font-size: 4rem; margin-top: 2rem; color: #7f8c8d;"></i>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55356 \u57241 \u65039 
+\f0  
+\f1 \'bb\'79\'ad\'b5\'ba\'4b\'ad\'6e
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.3rem; margin-bottom: 0.5rem;">\
+                
+\f1 \'bb\'79\'a8\'a5\'b3\'5d\'a9\'77\'a1\'47\'bf\'ef\'be\'dc\'b1\'7a\'b0\'be\'a6\'6e\'aa\'ba\'bb\'79\'ad\'b5\'ba\'4b\'ad\'6e\'bb\'79\'a8\'a5\'a1\'43
+\f0 \
+            </p>\
+            <p class="slide-text" style="font-size: 1.3rem;">\
+                
+\f1 \'a6\'db\'ad\'71
+\f0  Podcast 
+\f1 \'bd\'cd\'bd\'d7\'a4\'e8\'a6\'56\'a1\'47\'a4\'de\'be\'c9
+\f0  AI 
+\f1 \'a5\'cd\'a6\'a8\'b2\'c5\'a6\'58\'b1\'7a\'bb\'dd\'a8\'44\'aa\'ba\'bb\'79\'ad\'b5\'a4\'ba\'ae\'65\'a1\'43
+\f0 \
+            </p>\
+            <i class="fas fa-podcast" style="font-size: 4rem; margin-top: 2rem; color: #c0392b;"></i>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title prominent-title" style="font-size: 3.2rem;">
+\f2 \uc0\u55358 \u56800 
+\f0  
+\f1 \'a4\'df\'b4\'bc\'b9\'cf\'b6\'69\'b6\'a5\'b1\'b4\'a8\'73
+\f0  <i class="fas fa-lightbulb" style="color: #f1c40f;"></i></h1>\
+            <p class="slide-text" style="font-size: 1.3rem;">
+\f1 \'b1\'4e\'bd\'c6\'c2\'f8\'b8\'ea\'b0\'54\'b5\'f8\'c4\'b1\'a4\'c6\'a1\'41\'bf\'45\'b5\'6f\'a7\'f3\'a6\'68\'ab\'e4\'a6\'d2\'b3\'73\'b5\'b2\'a1\'49
+\f0 </p>\
+            <a href="https://notebooklm.google.com/notebook/5c2e64e1-376e-4426-8983-c1f54cff154d" target="_blank" class="info-card info-card-purple" style="font-size: 1.3rem; padding: 0.8rem 1.8rem; margin-top: 2rem;">\
+                
+\f1 \'a4\'df\'b4\'bc\'b9\'cf
+\f0  Demo <i class="fas fa-sitemap"></i>\
+            </a>\
+        </div>\
+    </section>\
+    \
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title prominent-title mochiy-pop-font" style="font-size: 3rem; color: #FFB6C1;">
+\f2 \uc0\u55357 \u56470 
+\f0  Gloria
+\f1 \'a6\'d1\'ae\'76\'aa\'ba\'b8\'ea\'b7\'bd\'a4\'c0\'a8\'c9
+\f0  
+\f2 \uc0\u55357 \u56470 
+\f0 </h1>\
+            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 1rem;">\
+                <a href="https://youtube.com/playlist?list=PLyRkKil2c7hI8YfZ-8f6FxCnJL8PiZKKn&si=vxhug6P_9f-KwvFR\'92" target="_blank" class="info-card" style="background-color: #FF6347; min-width: 280px;">\
+                    <i class="fab fa-youtube"></i> Gloria
+\f1 \'a6\'d1\'ae\'76\'aa\'ba\'a5\'78\'bb\'79\'bb\'b4\'a5\'69\'be\'c7
+\f0 \
+                </a>\
+                <a href="https://youtube.com/playlist?list=PLH7wPryxIEEye3s5_PuaoZ0iNefTqQi52&si=zVeinE6NcjAs5mfX\'92" target="_blank" class="info-card" style="background-color: #4682B4; min-width: 280px;">\
+                    <i class="fab fa-google-drive"></i> Gloria
+\f1 \'a6\'d1\'ae\'76\'aa\'ba\'a4\'c0\'a8\'c9
+\f0 GM\
+                </a>\
+                <a href="https://youtube.com/playlist?list=PLPq8qJBv2ernUiTIQyLmbcGYKrMF3djVa&si=c0322qjQ56zKwhw5\'92" target="_blank" class="info-card" style="background-color: #3CB371; min-width: 280px;">\
+                    <i class="fas fa-share-alt"></i> Gloria
+\f1 \'a4\'c0\'a8\'c9
+\f0 \
+                </a>\
+                <a href="https://youtube.com/playlist?list=PLH7wPryxIEExmpuM-FwSQ9MeHahH8Dk6x&si=IghVme_tqga1xR7y\'92" target="_blank" class="info-card" style="background-color: #DB7093; min-width: 280px;">\
+                    <i class="fas fa-music"></i> Gloria's Suno\
+                </a>\
+                <a href="https://www.facebook.com/groups/2294169410829101" target="_blank" class="info-card" style="background-color: #1877F2; min-width: 280px;">\
+                    <i class="fab fa-facebook"></i> GEG Taiwan | 
+\f1 \'a9\'45\'b9\'a1\'a8\'53
+\f0 \
+                </a>\
+            </div>\
+             <p class="slide-text" style="font-size: 0.8rem; margin-top: 1rem;">
+\f1 \'a1\'5d
+\f0 YouTube 
+\f1 \'b3\'73\'b5\'b2\'b6\'c8\'a8\'d1\'b0\'d1\'a6\'d2\'a1\'41\'bd\'d0\'b4\'c0\'b4\'ab\'ac\'b0\'b9\'ea\'bb\'da\'bc\'76\'a4\'f9
+\f0  ID
+\f1 \'a1\'5e
+\f0 </p>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title mochiy-pop-font">
+\f2 \uc0\u55356 \u57225 
+\f0  
+\f1 \'b5\'b2\'bb\'79\'a1\'47
+\f0 Let's Reflect!</h1>\
+            <p class="conclusion-highlight mochiy-pop-font" style="font-size: 2.6rem; line-height: 1.6;">\
+                AI
+\f1 \'a4\'75\'a8\'e3\'ac\'4f\'a1\'75\'af\'ab\'a7\'55\'b2\'7a\'a1\'76\'a1\'41
+\f0 <br><span style="color: #FFFF00;">
+\f1 \'a1\'75\'a4\'48\'a1\'76
+\f0 </span>
+\f1 \'a4\'7e\'ac\'4f\'af\'75\'a5\'bf\'a5\'44\'ae\'5f\'aa\'cc\'a1\'49
+\f0 \
+            </p>\
+            <i class="fas fa-user-astronaut" style="font-size: 4rem; margin-top: 2.5rem; color: #FFD700;"></i>\
+        </div>\
+    </section>\
+\
+    <section class="presentation-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <h1 class="slide-title">
+\f2 \uc0\u55357 \u56541 
+\f0  
+\f1 \'a6\'5e\'f5\'58\'aa\'ed\'b3\'e6
+\f0 </h1>\
+            <p class="slide-text" style="font-size: 1.5rem;">\
+                
+\f1 \'bd\'d0\'b1\'bd\'b4\'79
+\f0  QR Code 
+\f1 \'a9\'ce\'c2\'49\'c0\'bb\'b3\'73\'b5\'b2\'b6\'f1\'bc\'67\'a6\'5e\'f5\'58\'a1\'41\'b1\'7a\'aa\'ba\'b7\'4e\'a8\'a3\'b9\'ef\'a7\'da\'ad\'cc\'ab\'44\'b1\'60\'ad\'ab\'ad\'6e\'a1\'49
+\f0 \
+            </p>\
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://docs.google.com/forms/d/e/1FAIpQLSeOFhDYFdm0oAt_ddZPFIQHuX5AzJ-1uING4uf9QrV8bgCHrQ/viewform" alt="
+\f1 \'a6\'5e\'f5\'58\'aa\'ed\'b3\'e6
+\f0  QR Code" style="margin: 1.5rem auto; border-radius: 0.5rem; display: block; background-color: white; padding: 10px;">\
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeOFhDYFdm0oAt_ddZPFIQHuX5AzJ-1uING4uf9QrV8bgCHrQ/viewform" target="_blank" class="info-card" style="background-color: #28a745; border-color: #28a745;">\
+                
+\f1 \'b6\'f1\'bc\'67\'a6\'5e\'f5\'58\'aa\'ed\'b3\'e6
+\f0  <i class="fas fa-edit"></i>\
+            </a>\
+        </div>\
+    </section>\
+    \
+    <section class="presentation-slide" id="thank-you-slide" style="display: none;">\
+        <div class="slide-content animate-on-scroll">\
+            <canvas id="confetti-canvas"></canvas>\
+            <h1 class="thank-you-text mochiy-pop-font">THANK YOU!</h1>\
+            <p class="slide-text" style="font-size: 1.5rem; color: #f0f0f0;">
+\f1 \'b7\'50\'c1\'c2\'b1\'7a\'aa\'ba\'b0\'d1\'bb\'50\'a1\'49
+\f0 </p>\
+            <div class="thank-you-emoji-container">\
+                <span class="thank-you-emoji">
+\f2 \uc0\u55357 \u56911 
+\f0 </span>\
+                <span class="beating-heart-hand">
+\f2 \uc0\u55358 \u57078 
+\f0 </span>\
+                <span class="thank-you-emoji">
+\f2 \uc0\u55356 \u57119 
+\f0 </span>\
+            </div>\
+            <button onclick="window.print()" class="info-card" style="margin-top: 2.5rem; background-color: #6c757d;">\
+                <i class="fas fa-print"></i> 
+\f1 \'a6\'43\'a6\'4c\'c2\'b2\'b3\'f8
+\f0 \
+            </button>\
+        </div>\
+    </section>\
+\
+    <div id="navigation-controls">\
+        <button id="prev-slide" title="
+\f1 \'a4\'57\'a4\'40\'b1\'69
+\f0  (
+\f1 \'a5\'aa\'bd\'62\'c0\'59
+\f0 )">\
+            <i class="fas fa-arrow-left"></i> 
+\f1 \'a4\'57\'a4\'40\'b1\'69
+\f0 \
+        </button>\
+        <button id="next-slide" title="
+\f1 \'a4\'55\'a4\'40\'b1\'69
+\f0  (
+\f1 \'a5\'6b\'bd\'62\'c0\'59
+\f0 ) / 
+\f1 \'aa\'f0\'a6\'5e\'bc\'d0\'c3\'44\'ad\'b6
+\f0 ">\
+            
+\f1 \'a4\'55\'a4\'40\'b1\'69
+\f0  <i class="fas fa-arrow-right"></i>\
+        </button>\
+    </div>\
+\
+    <div id="slide-selector-container">\
+        <select id="slide-select-dropdown" title="
+\f1 \'a7\'d6\'b3\'74\'b8\'f5\'c2\'e0\'a8\'ec\'ab\'fc\'a9\'77\'ad\'b6\'ad\'b1
+\f0 "></select>\
+    </div>\
+\
+    <script>\
+        document.addEventListener('DOMContentLoaded', () => \{\
+            const slides = document.querySelectorAll('.presentation-slide');\
+            const prevButton = document.getElementById('prev-slide');\
+            const nextButton = document.getElementById('next-slide');\
+            const slideSelectDropdown = document.getElementById('slide-select-dropdown'); \
+            const slideSelectorContainer = document.getElementById('slide-selector-container');\
+            let currentSlideIndex = 0;\
+            \
+            const framerAnimator = window.motion; \
+\
+            const confettiCanvas = document.getElementById('confetti-canvas');\
+            let confettiCtx = confettiCanvas ? confettiCanvas.getContext('2d') : null;\
+            let confettiParticles = [];\
+            let confettiAnimationId = null;\
+\
+            const confettiColors = ["#f94144", "#f3722c", "#f8961e", "#f9c74f", "#90be6d", "#43aa8b", "#577590", "#277da1"];\
+\
+            function Particle(x, y, size, color, velocity) \{\
+                this.x = x; this.y = y; this.size = size; this.color = color;\
+                this.velocity = velocity; this.opacity = 1;\
+                this.rotation = Math.random() * 360;\
+                this.angularVelocity = (Math.random() - 0.5) * 0.1;\
+            \}\
+\
+            Particle.prototype.draw = function() \{\
+                if (!confettiCtx) return;\
+                confettiCtx.save();\
+                confettiCtx.translate(this.x + this.size / 2, this.y + this.size / 2);\
+                confettiCtx.rotate(this.rotation);\
+                confettiCtx.globalAlpha = this.opacity;\
+                confettiCtx.fillStyle = this.color;\
+                confettiCtx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 1.5);\
+                confettiCtx.restore();\
+            \};\
+\
+            Particle.prototype.update = function() \{\
+                this.x += this.velocity.x; this.y += this.velocity.y;\
+                this.velocity.y += 0.05; this.opacity -= 0.008;\
+                this.rotation += this.angularVelocity;\
+                if (this.opacity < 0) this.opacity = 0;\
+            \};\
+\
+            function createConfetti() \{\
+                if (!confettiCanvas || !confettiCtx) return;\
+                const particleCount = 150; \
+                const centerX = confettiCanvas.width / 2;\
+                for (let i = 0; i < particleCount; i++) \{\
+                    const size = Math.random() * 8 + 4;\
+                    const color = confettiColors[Math.floor(Math.random() * confettiColors.length)];\
+                    const velocity = \{ x: (Math.random() - 0.5) * 8, y: -(Math.random() * 6 + 4) \};\
+                    const x = centerX + (Math.random() - 0.5) * (confettiCanvas.width * 0.6);\
+                    const y = Math.random() * 50 - 20;\
+                    confettiParticles.push(new Particle(x, y, size, color, velocity));\
+                \}\
+            \}\
+\
+            function animateConfetti() \{\
+                if (!confettiCanvas || !confettiCtx) return;\
+                confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);\
+                confettiParticles.forEach((particle, index) => \{\
+                    particle.update(); particle.draw();\
+                    if (particle.opacity <= 0 || particle.y > confettiCanvas.height) confettiParticles.splice(index, 1);\
+                \});\
+                if (confettiParticles.length > 0) confettiAnimationId = requestAnimationFrame(animateConfetti);\
+                else \{\
+                    if (confettiCtx) confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);\
+                    cancelAnimationFrame(confettiAnimationId); confettiAnimationId = null;\
+                \}\
+            \}\
+\
+            function startConfetti() \{\
+                if (!confettiCanvas || !confettiCtx) return;\
+                const slideContent = confettiCanvas.parentElement;\
+                if (slideContent) \{\
+                    confettiCanvas.width = slideContent.offsetWidth;\
+                    confettiCanvas.height = slideContent.offsetHeight;\
+                \}\
+                confettiParticles = []; createConfetti();\
+                if (!confettiAnimationId) animateConfetti();\
+            \}\
+\
+            function stopConfetti() \{\
+                if (confettiAnimationId) \{ cancelAnimationFrame(confettiAnimationId); confettiAnimationId = null; \}\
+                confettiParticles = [];\
+                if (confettiCtx && confettiCanvas) confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);\
+            \}\
+\
+            function animateElementsInSlide(slide) \{\
+                const elementsToAnimate = slide.querySelectorAll('.animate-on-scroll');\
+                elementsToAnimate.forEach(element => \{\
+                    const delay = parseFloat(element.getAttribute('data-delay')) || 0;\
+                    if (framerAnimator && typeof framerAnimator.set === 'function') framerAnimator.set(element, \{ opacity: 0, y: 50 \});\
+                    else \{ element.style.opacity = 0; element.style.transform = 'translateY(50px)';\}\
+                    if (framerAnimator && typeof framerAnimator.animate === 'function') framerAnimator.animate(element, \{ opacity: 1, y: 0 \}, \{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: delay \});\
+                    else \{ setTimeout(() => \{ element.style.transition = `opacity 0.7s ease-out $\{delay\}s, transform 0.7s ease-out $\{delay\}s`; element.style.opacity = 1; element.style.transform = 'translateY(0px)'; \}, 50); \}\
+                \});\
+            \}\
+            \
+            function populateSlideSelector() \{\
+                if (!slideSelectDropdown) return;\
+                slideSelectDropdown.innerHTML = ''; \
+                slides.forEach((slide, index) => \{\
+                    const option = document.createElement('option');\
+                    option.value = index;\
+                    let titleElement = slide.querySelector('.slide-title');\
+                    let slideTitleText = `
+\f1 \'b2\'c4
+\f0  $\{index + 1\} 
+\f1 \'ad\'b6
+\f0 `;\
+                    if (titleElement) \{\
+                        let rawTitle = titleElement.textContent.trim().replace(/\\s+/g, ' ');\
+                        if (rawTitle.length > 20) \{ \
+                            rawTitle = rawTitle.substring(0, 18) + '...';\
+                        \}\
+                        if(rawTitle) slideTitleText += `: $\{rawTitle\}`;\
+                    \}\
+                    option.textContent = slideTitleText;\
+                    slideSelectDropdown.appendChild(option);\
+                \});\
+            \}\
+\
+            function updateNavigationButtons() \{\
+                if (!prevButton || !nextButton) return;\
+\
+                prevButton.disabled = currentSlideIndex === 0;\
+\
+                const nextButtonIcon = nextButton.querySelector('i');\
+                const nextButtonTextNode = Array.from(nextButton.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '');\
+                \
+                if (currentSlideIndex === slides.length - 1 && slides[currentSlideIndex].id === 'thank-you-slide') \{\
+                    if (nextButtonTextNode) nextButtonTextNode.nodeValue = '
+\f1 \'aa\'f0\'a6\'5e\'bc\'d0\'c3\'44\'ad\'b6
+\f0  ';\
+                    if (nextButtonIcon) nextButtonIcon.className = 'fas fa-home';\
+                    nextButton.classList.add('return-to-title'); \
+                    nextButton.disabled = false;\
+                \} else \{\
+                    if (nextButtonTextNode) nextButtonTextNode.nodeValue = '
+\f1 \'a4\'55\'a4\'40\'b1\'69
+\f0  ';\
+                    if (nextButtonIcon) nextButtonIcon.className = 'fas fa-arrow-right';\
+                    nextButton.classList.remove('return-to-title');\
+                    nextButton.disabled = currentSlideIndex === slides.length - 1;\
+                \}\
+            \}\
+\
+            function showSlide(index) \{\
+                slides.forEach((slide, i) => \{\
+                    slide.style.display = 'none'; \
+                    if (slide.id === 'thank-you-slide' && i !== index) stopConfetti();\
+                \});\
+                const currentSlide = slides[index];\
+                if (currentSlide) \{\
+                    currentSlide.style.display = 'flex'; \
+                    requestAnimationFrame(() => \{ \
+                        animateElementsInSlide(currentSlide);\
+                        if (currentSlide.id === 'thank-you-slide') setTimeout(startConfetti, 100); \
+                    \});\
+                \}\
+                currentSlideIndex = index; \
+                if (slideSelectDropdown) \{ \
+                    slideSelectDropdown.value = currentSlideIndex;\
+                \}\
+                updateNavigationButtons(); \
+            \}\
+\
+            if (prevButton && nextButton) \{\
+                prevButton.addEventListener('click', () => \{ \
+                    if (currentSlideIndex > 0) showSlide(currentSlideIndex - 1); \
+                \});\
+                \
+                nextButton.addEventListener('click', () => \{\
+                    if (currentSlideIndex === slides.length - 1 && slides[currentSlideIndex].id === 'thank-you-slide') \{\
+                        showSlide(0); \
+                    \} else if (currentSlideIndex < slides.length - 1) \{\
+                        showSlide(currentSlideIndex + 1);\
+                    \}\
+                \});\
+            \}\
+\
+            if (slideSelectDropdown) \{\
+                slideSelectDropdown.addEventListener('change', (event) => \{\
+                    const selectedIndex = parseInt(event.target.value, 10);\
+                    if (!isNaN(selectedIndex)) \{\
+                        showSlide(selectedIndex);\
+                    \}\
+                \});\
+            \}\
+            \
+            document.addEventListener('keydown', (event) => \{\
+                if (event.key === 'ArrowLeft' || event.key === 'PageUp') \{ \
+                    if (prevButton && !prevButton.disabled) prevButton.click(); \
+                \} else if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') \{ \
+                    if (nextButton && !nextButton.disabled) nextButton.click();\
+                \}\
+            \});\
+            \
+            window.addEventListener('resize', () => \{\
+                if (slides[currentSlideIndex] && slides[currentSlideIndex].id === 'thank-you-slide' && confettiCanvas && confettiCanvas.parentElement) \{\
+                     const slideContent = confettiCanvas.parentElement;\
+                     confettiCanvas.width = slideContent.offsetWidth;\
+                     confettiCanvas.height = slideContent.offsetHeight;\
+                \}\
+            \});\
+            \
+            populateSlideSelector(); \
+\
+            if (slides.length > 0) \{\
+                showSlide(0); \
+            \} else \{ \
+                if (prevButton) prevButton.style.display = 'none';\
+                if (nextButton) nextButton.style.display = 'none';\
+                if (slideSelectDropdown) slideSelectDropdown.style.display = 'none';\
+                if (slideSelectorContainer) slideSelectorContainer.style.display = 'none';\
+            \}\
+        \});\
+    </script>\
+\
+</body>\
+</html>\
+}
